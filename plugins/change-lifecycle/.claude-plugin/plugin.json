@@ -1,5 +1,5 @@
 {
   "name": "change-lifecycle",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Tracked, human-paced code-change lifecycle on Jujutsu (jj) workspaces for Claude Code. One kebab-case slug names the jj workspace (../<slug>), the bookmark (<type>/<slug>), and the OpenSpec change-id, so the eventual GitHub PR stays coordinated end to end. Skills: triage-change (scope an issue + OpenSpec gate + label), start-change (issue + workspace + optional proposal), change-context (enter a workspace), make-change (implement in the workspace), end-change (push the bookmark, open the PR, link both ways), teardown-change (guarded cleanup after merge). Requires the jj-vcs plugin (all jj mechanics delegate to its jj-vcs:jj skill). The Linear MCP is an optional addon: present -> Linear is the issue tracker; absent -> GitHub Issues via the gh CLI; neither -> the change is still tracked by its OpenSpec folder, jj bookmark, and PR. Issue<->PR linkage is wired explicitly in every mode."
 }
