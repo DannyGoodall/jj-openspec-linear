@@ -80,5 +80,10 @@ and the skill says so.
 | Issue → PR link | Linear comment + In Review | issue comment / cross-ref | n/a |
 | Change still tracked by | OpenSpec folder + bookmark + PR | OpenSpec folder + bookmark + PR | OpenSpec folder + bookmark + PR |
 
+For complete, copy-ready `docs/agents/issue-tracker.md` files for each of these
+modes — including the case where the Linear MCP is present but the repo is pinned
+to GitHub — see the [Worked examples](issue-tracker.md#worked-examples) in
+issue-tracker.md.
+
 See also [issue-tracker.md](issue-tracker.md) and
 [github-proposals.md](github-proposals.md).
