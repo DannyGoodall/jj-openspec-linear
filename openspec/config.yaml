@@ -1,0 +1,49 @@
+schema: spec-driven
+
+context: |
+  Project: jj-openspec-linear — a Claude Code plugin (distributed as its own
+  marketplace) that packages a tracked, human-paced code-change lifecycle built on
+  Jujutsu (jj) workspaces, OpenSpec change proposals, and an OPTIONAL issue tracker.
+
+  What it ships: a set of Claude Code skills that take a code change from triage
+  through to a reviewable GitHub pull request, each change isolated in its own jj
+  workspace and (when it touches specifications) governed by an OpenSpec proposal.
+
+  The lifecycle skills (canonical names, do not rename without a change proposal):
+    triage-change  → start-change → make-change → end-change → teardown-change
+    change-context (the "enter the workspace" primitive that make-change composes)
+
+  Hard prerequisite: the jj-vcs plugin (provides the `jj-vcs:jj` skill). All VCS
+  mechanics are delegated to it; skills never reinvent jj.
+
+  Optional addon: the Linear MCP server (`mcp__linear-server__*`). The plugin MUST
+  work without it. Issue tracking is a PLUGGABLE binding discovered at runtime:
+    - Linear MCP present  → use Linear for issues, labels, status, comments.
+    - Linear MCP absent   → fall back to GitHub Issues via the `gh` CLI.
+  Issue↔PR linkage is bidirectional and explicit in BOTH modes (the jj bookmark
+  name carries no identifier, so nothing auto-links).
+
+  Distribution: this repo is its own marketplace (.claude-plugin/marketplace.json)
+  containing a single plugin. PRs are a GitHub concept; the PR records the issue and
+  the issue records the PR.
+
+  Tech & conventions:
+    - Skills are Markdown (SKILL.md + references/), progressive disclosure, frontmatter
+      name + description, trigger-rich descriptions.
+    - One kebab-case slug names the jj workspace dir (../<slug>), the bookmark
+      (<type>/<slug>), and the OpenSpec change-id — everything stays coordinated.
+    - Conventional-commit types: fix | feat | chore.
+    - Changes ship as PRs reviewed (and tested) post-merge; do not self-merge.
+    - OpenSpec drives any change that would make specs/design stale; pure bug fixes
+      that leave specs accurate skip OpenSpec.
+
+rules:
+  proposal:
+    - "State plainly whether the change adds/streamlines a skill, the packaging, the tracker binding, or documentation."
+    - "Call out the Linear-optional contract whenever a skill touches issue tracking."
+  design:
+    - "Document the runtime capability-detection rule for the issue tracker and the graceful-degradation fallback to GitHub Issues."
+    - "Note delegation boundaries — jj to the jj-vcs:jj skill, proposal authoring to the OpenSpec skills, issues to the Linear MCP or gh, PR creation to gh."
+  tasks:
+    - "Each lifecycle skill is one SKILL.md plus its references/; enumerate them."
+    - "Every skill that reads or writes issues must enumerate both the Linear path and the gh fallback path as separate tasks."
