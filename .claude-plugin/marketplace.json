@@ -1,0 +1,16 @@
+{
+  "name": "jj-openspec-linear",
+  "owner": { "name": "Danny Goodall" },
+  "metadata": {
+    "description": "A tracked, human-paced code-change lifecycle for Claude Code built on Jujutsu (jj) workspaces, OpenSpec proposals, and an optional Linear/GitHub issue tracker",
+    "homepage": "https://github.com/DannyGoodall/jj-openspec-linear",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "change-lifecycle",
+      "source": "./plugins/change-lifecycle",
+      "description": "Take a code change from triage to a reviewable GitHub PR, each change isolated in its own jj workspace and (when it touches specs) governed by an OpenSpec proposal. Skills: triage-change, start-change, make-change, end-change, teardown-change, change-context. Requires the jj-vcs plugin; the Linear MCP is optional (falls back to GitHub Issues via gh)."
+    }
+  ]
+}

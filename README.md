@@ -27,21 +27,21 @@ triage-change → start-change → make-change → end-change → (merge) → te
 
 ## Repo state
 
-This repository is **spec-complete, not yet implemented.** Every behaviour
-documented here is pinned by validated OpenSpec changes under
-`openspec/changes/`. The skill bodies (`SKILL.md`) and the marketplace/plugin
-manifests are tracked by three implementation changes that have not yet landed:
+This repository is **implemented and spec-driven.** Every behaviour documented
+here is pinned by a validated OpenSpec change under `openspec/changes/`, and the
+corresponding manifests and skills are in place under
+[`plugins/change-lifecycle/`](plugins/change-lifecycle/):
 
-| Change | What it delivers |
-|--------|------------------|
-| `plugin-scaffold-and-distribution` | the marketplace manifest, the `change-lifecycle` plugin manifest, and the skill directory skeleton |
-| `tracked-change-lifecycle` | the behaviour of `triage-change`, `start-change`, `make-change`, `end-change`, `teardown-change`, and `change-context` |
-| `optional-issue-tracker-binding` | the runtime Linear/GitHub/none tracker binding and the bidirectional issue↔PR linkage |
+| Change | What it delivers | Status |
+|--------|------------------|--------|
+| `plugin-scaffold-and-distribution` | the marketplace manifest, the `change-lifecycle` plugin manifest, and the skill layout | ✓ applied |
+| `tracked-change-lifecycle` | the six skills: `triage-change`, `start-change`, `make-change`, `end-change`, `teardown-change`, `change-context` | ✓ applied |
+| `optional-issue-tracker-binding` | the runtime Linear/GitHub/none tracker binding and the bidirectional issue↔PR linkage | ✓ applied |
+| `workflow-documentation` | this README and the [`docs/`](docs/) set | ✓ applied |
 
-This README and the [`docs/`](docs/) set are delivered by a fourth change,
-`workflow-documentation`. The install and usage instructions below describe the
-plugin **as specified** — they become live once the three implementation changes
-ship.
+The changes remain in `openspec/changes/` (not yet archived) so the proposal →
+spec → tasks history stays visible; run `openspec archive <change>` to fold each
+delta into `openspec/specs/` when you want the specs to become the source of truth.
 
 ## Prerequisites and optional addons
 
