@@ -32,16 +32,17 @@ here is pinned by a validated OpenSpec change under `openspec/changes/`, and the
 corresponding manifests and skills are in place under
 [`plugins/change-lifecycle/`](plugins/change-lifecycle/):
 
-| Change | What it delivers | Status |
+| Change | Capability specs | Status |
 |--------|------------------|--------|
-| `plugin-scaffold-and-distribution` | the marketplace manifest, the `change-lifecycle` plugin manifest, and the skill layout | ✓ applied |
-| `tracked-change-lifecycle` | the six skills: `triage-change`, `start-change`, `make-change`, `end-change`, `teardown-change`, `change-context` | ✓ applied |
-| `optional-issue-tracker-binding` | the runtime Linear/GitHub/none tracker binding and the bidirectional issue↔PR linkage | ✓ applied |
-| `workflow-documentation` | this README and the [`docs/`](docs/) set | ✓ applied |
+| `plugin-scaffold-and-distribution` | `plugin-packaging` | ✓ archived |
+| `tracked-change-lifecycle` | `change-lifecycle`, `workspace-context`, `change-triage` | ✓ archived |
+| `optional-issue-tracker-binding` | `issue-tracking` | ✓ archived |
+| `workflow-documentation` | `documentation` | ✓ archived |
+| `cw-command` | `workspace-shell-tool` (the `cw` helper + `.worktreeinclude`) | ✓ archived |
 
-The changes remain in `openspec/changes/` (not yet archived) so the proposal →
-spec → tasks history stays visible; run `openspec archive <change>` to fold each
-delta into `openspec/specs/` when you want the specs to become the source of truth.
+All changes have been archived: their delta specs are folded into
+[`openspec/specs/`](openspec/specs/) — now the source of truth — and the full
+proposal → spec → tasks history is preserved under `openspec/changes/archive/`.
 
 ## Prerequisites and optional addons
 
