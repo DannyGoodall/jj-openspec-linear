@@ -88,6 +88,12 @@ Give the workspace's first commit a description that names the issue (`Refs <ID>
 issue is discoverable from the commit and later the PR. **Idempotent:** if `../<slug>`
 already exists, reuse it — check `jj workspace list` before creating.
 
+**Scaffold `.worktreeinclude`.** `jj workspace add` copies only *tracked* files, so gitignored
+essentials (`.env`, …) are absent from the new workspace. If the repo has no `.worktreeinclude`,
+scaffold a starter one at the repo root listing common gitignored paths so `cw … --hydrate`
+works the first time; never overwrite an existing one. The user can then enter and hydrate the
+workspace with `cw <slug> --hydrate` (see `${CLAUDE_PLUGIN_ROOT}/references/cw-helper.md`).
+
 ### 4 — (OpenSpec gate true only) Author + approve the proposal
 
 Hand authoring to the OpenSpec **propose** skill (`/openspec-propose` or `opsx:propose`),
@@ -121,3 +127,5 @@ implements with `make-change`, then `end-change` ships the PR.
 - `${CLAUDE_PLUGIN_ROOT}/references/issue-tracking.md` — pluggable issue-tracking binding
   (mode selection, per-mode operations, issue↔PR linkage).
 - `${CLAUDE_PLUGIN_ROOT}/references/triage-labels.md` — canonical triage roles → per-tracker mechanisms.
+- `${CLAUDE_PLUGIN_ROOT}/references/cw-helper.md` — the `cw` workspace shell helper (enter /
+  hydrate / dev) and the `.worktreeinclude` config to scaffold.

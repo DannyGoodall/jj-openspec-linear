@@ -130,3 +130,24 @@ It notes the bookmark and that no push happens in this phase.
 
 **Hands off to.** Whatever work follows in the same session (typically the
 implement step of `make-change`).
+
+## `cw` (workspace shell helper)
+
+Not a skill — a bundled **pure-shell** function (zsh + bash, no language runtime) for the
+human terminal side of a change. While `change-context` re-points *Claude* at a workspace,
+`cw` re-points *your shell*.
+
+**Does.** `cw <slug>` `cd`s to the sibling workspace `../<slug>` (resolved from `jj workspace
+root`; clear errors if it's missing or you're not in a jj workspace — `cd` works only because
+the helper is *sourced*). `cw <slug> --hydrate` copies `.worktreeinclude` matches (e.g. `.env`,
+`.env.local`) from the primary into the workspace, because `jj workspace add` copies only
+*tracked* files. `cw <slug> --dev [--port N]` hydrates, frees the configured port, then runs the
+project's declared `dev:` command — degrading to hydrate + a hint when none is declared, so it
+never assumes a runtime.
+
+**Config.** `.worktreeinclude` at the repo root: copy-pattern lines plus optional `dev:` /
+`port:` directives. `start-change` scaffolds a starter one when absent.
+
+**Install.** `bash "${CLAUDE_PLUGIN_ROOT}/scripts/install-cw.sh"` copies `cw.sh` to a stable
+path; add the printed `source` line to your shell rc once. See
+[../plugins/change-lifecycle/references/cw-helper.md](../plugins/change-lifecycle/references/cw-helper.md).

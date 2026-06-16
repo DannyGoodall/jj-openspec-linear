@@ -62,7 +62,9 @@ Declare explicitly and hold until the conversation ends or the user redirects:
   stale. Stay single-agent — no second `claude` launched in the workspace.
 - **bookmark:** note `<type>/<slug>`; no push here.
 
-Establish where work happens, then yield.
+Establish where work happens, then yield. (For a human working in a terminal, `cw <slug>` enters
+the workspace and `cw <slug> --hydrate` carries gitignored essentials across — see
+`${CLAUDE_PLUGIN_ROOT}/references/cw-helper.md`.)
 
 ## Principles
 
@@ -81,3 +83,5 @@ Establish where work happens, then yield.
   working-contract checklist `make-change` (and any in-workspace work) relies on.
 - `${CLAUDE_PLUGIN_ROOT}/references/issue-tracking.md` — pluggable issue-tracking binding (mode
   selection, per-mode operations) used to resolve an issue argument to its slug.
+- `${CLAUDE_PLUGIN_ROOT}/references/cw-helper.md` — the `cw` shell helper a human uses to enter
+  and hydrate the workspace in a terminal.
