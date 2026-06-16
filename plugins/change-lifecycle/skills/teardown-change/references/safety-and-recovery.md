@@ -10,6 +10,10 @@ jj mechanics belong to the `jj-vcs:jj` skill.
 gh pr view <type>/<slug> --json state,mergedAt        # state == MERGED → safe
 # …or, without gh: is the bookmark commit already on main?
 jj log -r '<type>/<slug> & ::main@origin' --no-graph  # non-empty → merged/landed
+# Colocated-jj gotcha: gh commands that infer the "current branch" (e.g. gh pr merge)
+# may print "could not determine current branch: not on any branch" because jj leaves
+# git in a detached state. The merge still happens server-side — judge merge state by
+# `gh pr view ... --json state,mergedAt`, NOT by the command's exit code.
 
 # Pushed & current? (unpushed commits = unsafe)
 jj log -r '<type>/<slug>' --no-graph                  # compare against the remote-tracking bookmark
@@ -35,6 +39,9 @@ cd <primary>                               # the repo root
 jj workspace forget <slug>                 # detach the workspace from the repo
 rm -rf ../<slug>                           # remove the working directory
 jj bookmark delete <type>/<slug>           # local bookmark; the remote branch is usually deleted on PR merge
+jj bookmark forget <type>/<slug>           # drop the now-stale @origin tracking ref (a --delete-branch
+                                           #   merge removes the remote branch, but jj keeps the tracking
+                                           #   ref until a fetch); `jj git fetch` also prunes it
 jj workspace list                          # verify <slug> is gone
 ```
 

@@ -31,15 +31,26 @@ SHALL hardcode the assumption that any particular tracker is present.
 
 ### Requirement: Selection order and no-tracker fallback
 
-The plugin SHALL select the active tracker by a fixed precedence: Linear MCP if
-present, else GitHub Issues if `gh` is authenticated, else no tracker. When the
-active mode is none, the skill SHALL proceed — the change remains tracked by its
-OpenSpec change folder, its jj bookmark, and its GitHub PR — and SHALL clearly
-state that no issue was recorded. Linear SHALL never be a hard requirement.
+The plugin SHALL resolve the active tracker with pinned configuration taking
+precedence over runtime detection. An explicit `Mode` pinned in the consuming repo's
+`docs/agents/issue-tracker.md` (one of `linear`, `github`, or `none`) SHALL be used
+even when a higher-precedence tracker is present in the session. Only when no mode is
+pinned SHALL the plugin select by the fixed probe precedence: Linear MCP if present,
+else GitHub Issues if `gh` is authenticated, else no tracker. When the active mode is none, the skill SHALL proceed — the change
+remains tracked by its OpenSpec change folder, its jj bookmark, and its GitHub PR —
+and SHALL clearly state that no issue was recorded. Linear SHALL never be a hard
+requirement.
 
-#### Scenario: Linear preferred over gh when both available
+#### Scenario: Pinned mode overrides detection
 
-- **WHEN** both the Linear MCP tools and an authenticated `gh` are available
+- **WHEN** `docs/agents/issue-tracker.md` pins `Mode: github` and the Linear MCP tools
+  are also present in the session
+- **THEN** the skill operates in GitHub mode and does not create a Linear issue
+
+#### Scenario: Linear preferred over gh when both available and no mode pinned
+
+- **WHEN** no mode is pinned and both the Linear MCP tools and an authenticated `gh`
+  are available
 - **THEN** the skill operates in Linear mode and does not create a GitHub issue
 
 #### Scenario: No-tracker mode still completes the change
@@ -91,9 +102,10 @@ the issue SHALL receive a comment or cross-reference carrying the PR.
 In Linear mode the plugin SHALL NOT hardcode the team, labels, or statuses; it
 SHALL discover them at runtime via `list_teams`, `list_issue_labels`, and
 `list_issue_statuses`. The plugin SHALL scaffold an editable
-`docs/agents/issue-tracker.md` in the consuming repo that pins the chosen team and
-records the conventions. When that doc is present it SHALL be treated as the source
-of truth in preference to re-discovery.
+`docs/agents/issue-tracker.md` in the consuming repo that pins the active `Mode` and
+the chosen team and records the conventions. When that doc is present it SHALL be
+treated as the source of truth — for both the active mode (see the selection-order
+requirement) and the coordinates — in preference to re-discovery.
 
 #### Scenario: Team and vocabulary discovered, not hardcoded
 
