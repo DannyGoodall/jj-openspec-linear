@@ -148,6 +148,21 @@ change, so the issue, workspace, branch, and PR stay aligned end to end:
 The slug is fixed at `start-change` and reused unchanged by every later phase.
 See [docs/workflow.md](docs/workflow.md).
 
+## Working in a workspace: `cw`
+
+A bundled **pure-shell** helper (zsh + bash, no runtime) for the terminal side of a change:
+
+```bash
+cw <slug>             # cd to the ../<slug> workspace
+cw <slug> --hydrate   # + copy .worktreeinclude matches (e.g. .env) from the primary —
+                      #   jj only copies tracked files into a new workspace
+cw <slug> --dev       # + free the configured port and run the project's declared dev command
+```
+
+Install once (survives plugin updates): `bash "${CLAUDE_PLUGIN_ROOT}/scripts/install-cw.sh"`,
+then add the printed `source` line to your shell rc. Details:
+[references/cw-helper.md](plugins/change-lifecycle/references/cw-helper.md).
+
 ## Documentation
 
 | Doc | Covers |
